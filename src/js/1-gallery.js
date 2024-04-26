@@ -81,27 +81,10 @@ const markup = images.reduce((html, image) => {
 
 gallery.insertAdjacentHTML('beforeend', markup);
 
-gallery.addEventListener('click', onImageClick);
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-function onImageClick(event) {
-  event.preventDefault();
-  const clickedImg = event.target.closest('.gallery-item');
-  if (!clickedImg) return;
-
-  const dataSource = event.target.getAttribute('data-source');
-  if (!dataSource) return;
-
-  const currentCard = images.find(image => {
-    return image.original === dataSource;
-  });
-
-  const instance = basicLightbox.create(`
-    <img
-    class="gallery-image-modal"
-    src="${currentCard.original}"
-    data-source="${currentCard.original}"
-    alt="${currentCard.description}"
-    />
-`);
-  instance.show();
-}
+new SimpleLightbox('.gallery-link', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
