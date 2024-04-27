@@ -14,6 +14,7 @@ if (storedFormData) {
   const parsedData = JSON.parse(storedFormData);
   refs.emailInput.value = parsedData.email;
   refs.textInput.value = parsedData.message;
+  Object.assign(formData, parsedData);
 }
 
 function saveFormDataToLocalStorage() {
@@ -27,6 +28,9 @@ function onFormSubmit(event) {
     return;
   }
   console.log(formData);
+  Object.keys(formData).forEach(key => {
+    formData[key] = '';
+  });
   localStorage.removeItem('feedback-form-state');
   refs.feedbackForm.reset();
 }
